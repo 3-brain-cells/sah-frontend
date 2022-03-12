@@ -1,16 +1,8 @@
 import React from "react";
-import styled from "@emotion/styled";
-import PageTitle from "../components/PageTitle";
-import { EventTime, Location } from "../newtypes/voting";
+import { EventTime } from "../newtypes/voting";
 import DoneButton from "../newcomponents/DoneButton";
-
-const Styled = {
-  VotingDemo1: styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  `,
-};
+import LocationTimeVotingBlock from "../newcomponents/LocationTimeVotingBlock";
+import DemoOuter from "../newcomponents/DemoOuter";
 
 export type VotingDemo1Props = {
   data: EventTime[];
@@ -24,12 +16,9 @@ export default function VotingDemo1({
   className,
 }: VotingDemo1Props) {
   return (
-    // take time and location pairs and create list
-
-    <Styled.VotingDemo1 className={className} style={style}>
-      <PageTitle>Vote on Hangout</PageTitle>
-
-      <DoneButton></DoneButton>
-    </Styled.VotingDemo1>
+    <DemoOuter className={className} style={style}>
+      <LocationTimeVotingBlock data={data} style={{ marginBottom: 24 }} />
+      <DoneButton />
+    </DemoOuter>
   );
 }
