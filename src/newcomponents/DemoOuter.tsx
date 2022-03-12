@@ -15,7 +15,7 @@ const Styled = {
     max-width: 640px;
     width: 100%;
     margin: 0 auto;
-    padding-bottom: 24px;
+    padding-bottom: 72px;
   `,
 };
 
