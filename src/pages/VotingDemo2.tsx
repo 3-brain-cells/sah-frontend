@@ -4,6 +4,7 @@ import { colors } from "../components/_lib/colors";
 import PageTitle from "../components/PageTitle";
 import { EventTime, Location } from "../newtypes/voting";
 import TimeVotingCard from "../newcomponents/TimeVotingCard";
+import DoneButton from "../newcomponents/DoneButton";
 
 const Styled = {
   VotingDemo2: styled.div`
@@ -12,6 +13,11 @@ const Styled = {
     height: 100vh;
     color: ${colors.foreground};
     text-align: left;
+  `,
+  TimeVotingCard: styled(TimeVotingCard)`
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
   `,
 };
 
@@ -57,7 +63,7 @@ export default function VotingDemo2({
       {times.map((time) => {
         const id = makeTimeID(time);
         return (
-          <TimeVotingCard
+          <Styled.TimeVotingCard
             key={id}
             time={time}
             selected={timesVotingState[id] ?? false}
@@ -70,6 +76,7 @@ export default function VotingDemo2({
           />
         );
       })}
+      <DoneButton />
     </Styled.VotingDemo2>
   );
 }

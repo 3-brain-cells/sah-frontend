@@ -87,7 +87,12 @@ const SAMPLE_DATA: EventTime[] = [
   {
     start: makeDateRelativeToToday(1, 20, 0), // 1 day from now, 8:00 PM
     end: makeDateRelativeToToday(1, 21, 0), // 1 day from now, 9:00 PM
-    available: [SAMPLE_PEOPLE[0], SAMPLE_PEOPLE[1], SAMPLE_PEOPLE[2]],
+    available: [
+      SAMPLE_PEOPLE[0],
+      SAMPLE_PEOPLE[1],
+      SAMPLE_PEOPLE[2],
+      SAMPLE_PEOPLE[3],
+    ],
     bestLocations: [SAMPLE_LOCATIONS[0]],
   },
   {

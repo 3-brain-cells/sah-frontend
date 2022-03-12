@@ -1,19 +1,20 @@
 import styled from "@emotion/styled";
+import Button from "../components/Button";
 
 const Styled = {
-  Button: styled.button`
+  Div: styled.div`
     background-color: #fff;
     border: 1px solid #ccc;
     position: fixed;
-    bottom: 0;
-    right: 0;
+    bottom: 10px;
+    right: 10px;
   `,
 };
 
 export default function DoneButton() {
   return (
-    <Styled.Button>
-      <span>Done</span>
-    </Styled.Button>
+    <Styled.Div>
+      <Button onClick={() => console.log("clicked")} text="Button" />
+    </Styled.Div>
   );
 }
