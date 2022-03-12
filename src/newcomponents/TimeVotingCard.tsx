@@ -3,38 +3,11 @@ import styled from "@emotion/styled";
 import { EventTime, Person } from "../newtypes/voting";
 import Heading from "../components/Heading";
 import BaseText from "../components/BaseText";
-import Checkbox from "../components/Checkbox";
-import {
-  FaCaretDown,
-  FaChevronCircleDown,
-  FaChevronDown,
-} from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { colors } from "../components/_lib/colors";
+import BaseVotingCard from "./BaseVotingCard";
 
 const Styled = {
-  TimeVotingCard: styled.div`
-    user-select: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 8px;
-  `,
-  CardCheckbox: styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-left: 8px;
-  `,
-  CardContents: styled.div`
-    text-align: left;
-    padding-left: 16px;
-    flex-grow: 1;
-  `,
   AvailabilityText: styled(BaseText)`
     margin-bottom: 8px;
   `,
@@ -166,22 +139,18 @@ export default function TimeVotingCard({
       : `${time.available.length} people are available`;
 
   return (
-    <Styled.TimeVotingCard
+    <BaseVotingCard
       className={className}
       style={style}
       onClick={onClick}
+      selected={selected}
     >
-      <Styled.CardCheckbox>
-        <Checkbox selected={selected} style={{ pointerEvents: "none" }} />
-      </Styled.CardCheckbox>
-      <Styled.CardContents>
-        <Heading>
-          {dateShort} {timeStart} - {timeEnd}
-        </Heading>
-        <Styled.AvailabilityText>{availabilityText}</Styled.AvailabilityText>
-        <AvailabilityDropdown people={time.available} />
-      </Styled.CardContents>
-    </Styled.TimeVotingCard>
+      <Heading>
+        {dateShort} {timeStart} - {timeEnd}
+      </Heading>
+      <Styled.AvailabilityText>{availabilityText}</Styled.AvailabilityText>
+      <AvailabilityDropdown people={time.available} />
+    </BaseVotingCard>
   );
 }
 

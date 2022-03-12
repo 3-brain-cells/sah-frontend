@@ -5,7 +5,8 @@ import PageTitle from "../components/PageTitle";
 const Styled = {
   VotingBlock: styled.div``,
   Title: styled(PageTitle)`
-    font-size: 2rem;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
   `,
 };
 

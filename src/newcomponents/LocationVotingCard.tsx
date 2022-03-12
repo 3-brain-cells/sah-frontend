@@ -1,24 +1,34 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Location } from "../newtypes/voting";
+import BaseVotingCard from "./BaseVotingCard";
 
-const Styled = {
-  LocationVotingCard: styled.div``,
-};
+const Styled = {};
 
 export type LocationVotingCardProps = {
-  children: React.ReactNode;
+  location: Location;
+  selected: boolean;
+  onClick: () => void;
   className?: string;
   style?: React.CSSProperties;
 };
 
 export default function LocationVotingCard({
-  style,
+  location,
+  selected,
+  onClick,
   className,
-  children,
+  style,
 }: LocationVotingCardProps) {
   return (
-    <Styled.LocationVotingCard className={className} style={style}>
-      {children}
-    </Styled.LocationVotingCard>
+    <BaseVotingCard
+      className={className}
+      style={style}
+      onClick={onClick}
+      selected={selected}
+    >
+      TODO implement
+      {location.name}
+    </BaseVotingCard>
   );
 }
