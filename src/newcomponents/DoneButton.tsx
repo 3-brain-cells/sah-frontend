@@ -3,18 +3,27 @@ import Button from "../components/Button";
 
 const Styled = {
   Div: styled.div`
-    background-color: #fff;
-    border: 1px solid #ccc;
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
+    position: absolute;
+    bottom: 40%;
+    right: 5%;
   `,
+
+  OuterDiv: styled.div`
+    background-color: pink;
+    position : fixed;
+    width: 100%;
+    height: 20%;
+    bottom: 0;
+    `
+
 };
 
 export default function DoneButton() {
   return (
-    <Styled.Div>
-      <Button onClick={() => console.log("clicked")} text="Button" />
-    </Styled.Div>
+    <Styled.OuterDiv>
+      <Styled.Div>
+        <Button onClick={() => console.log('clicked')} text="Button"/>
+      </Styled.Div>
+    </Styled.OuterDiv>
   );
 }
