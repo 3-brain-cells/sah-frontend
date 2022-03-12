@@ -14,7 +14,6 @@ const Styled = {
 
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    padding: 8px;
 
     &[data-selected="true"] {
       background-color: ${rgba(lighten(0.2, colors.secondary), 0.2)};
@@ -25,17 +24,22 @@ const Styled = {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-left: 8px;
+    padding: 8px;
+    padding-left: 16px;
   `,
   CardContents: styled.div`
     text-align: left;
-    padding-left: 16px;
     flex-grow: 1;
+
+    &:not([data-no-padding="true"]) {
+      padding: 8px;
+    }
   `,
 };
 
 export type BaseVotingCardProps = {
   children: React.ReactNode;
+  noPadding?: boolean;
   selected: boolean;
   onClick: () => void;
   className?: string;
@@ -44,6 +48,7 @@ export type BaseVotingCardProps = {
 
 export default function BaseVotingCard({
   children,
+  noPadding = false,
   selected,
   onClick,
   className,
@@ -59,7 +64,9 @@ export default function BaseVotingCard({
       <Styled.CardCheckbox>
         <Checkbox selected={selected} style={{ pointerEvents: "none" }} />
       </Styled.CardCheckbox>
-      <Styled.CardContents>{children}</Styled.CardContents>
+      <Styled.CardContents data-no-padding={noPadding.toString()}>
+        {children}
+      </Styled.CardContents>
     </Styled.BaseVotingCard>
   );
 }

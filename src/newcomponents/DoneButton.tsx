@@ -4,12 +4,15 @@ import { colors } from "../components/_lib/colors";
 
 const Styled = {
   OuterDiv: styled.div`
-    background-color: ${colors.background10};
+    background-color: ${colors.background30};
     position: fixed;
     width: 100%;
     bottom: 0;
     left: 0;
     padding: 16px 16px;
+
+    /* Add a big drop shadow */
+    box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.2);
   `,
   Div: styled.div`
     max-width: 640px;

@@ -4,6 +4,7 @@ import VotingDemo2 from "./pages/VotingDemo2";
 
 import "./App.css";
 import { EventTime, Location, Person } from "./newtypes/voting";
+import VotingDemo3 from "./pages/VotingDemo3";
 
 const SAMPLE_PEOPLE: Person[] = [
   {
@@ -121,6 +122,10 @@ function App() {
           <Route
             path="/demo/voting/2"
             element={<VotingDemo2 data={SAMPLE_DATA} />}
+          />
+          <Route
+            path="/demo/voting/3/*"
+            element={<VotingDemo3 data={SAMPLE_DATA} />}
           />
         </Routes>
       </BrowserRouter>

@@ -1,19 +1,10 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { colors } from "../components/_lib/colors";
-import Heading from "../components/Heading";
-import PageTitle from "../components/PageTitle";
 import { EventTime } from "../newtypes/voting";
-
-const Styled = {
-  VotingDemo3: styled.div`
-    background-color: ${colors.background20};
-    padding: 4px 8px;
-    height: 100vh;
-    color: ${colors.foreground};
-    text-align: left;
-  `,
-};
+import DoneButton from "../newcomponents/DoneButton";
+import TimeVotingBlock from "../newcomponents/TimeVotingBlock";
+import LocationVotingBlock from "../newcomponents/LocationVotingBlock";
+import DemoOuter from "../newcomponents/DemoOuter";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 export type VotingDemo3Props = {
   data: EventTime[];
@@ -26,11 +17,29 @@ export default function VotingDemo3({
   style,
   className,
 }: VotingDemo3Props) {
+  let navigate = useNavigate();
   return (
-    <Styled.VotingDemo3 className={className} style={style}>
-      <PageTitle>Vote on event time</PageTitle>
-      <Heading>Vote on event time</Heading>
-      Voting demo 3
-    </Styled.VotingDemo3>
+    <DemoOuter className={className} style={style}>
+      <Routes>
+        <Route
+          path="time"
+          element={
+            <>
+              <TimeVotingBlock data={data} />
+              <DoneButton text="Next" onClick={() => navigate("location")} />
+            </>
+          }
+        />
+        <Route
+          path="location"
+          element={
+            <>
+              <LocationVotingBlock data={data} />
+              <DoneButton />
+            </>
+          }
+        />
+      </Routes>
+    </DemoOuter>
   );
 }
