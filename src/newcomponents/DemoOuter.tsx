@@ -9,11 +9,13 @@ const Styled = {
     height: 100vh;
     color: ${colors.foreground};
     text-align: left;
+    overflow: auto;
   `,
   Inner: styled.div`
     max-width: 640px;
     width: 100%;
     margin: 0 auto;
+    padding-bottom: 24px;
   `,
 };
 
