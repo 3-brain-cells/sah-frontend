@@ -37,6 +37,7 @@ export type DoneButtonProps = {
   text?: string;
   className?: string;
   style?: React.CSSProperties;
+  disabled?: boolean;
 };
 
 export default function DoneButton({
@@ -44,11 +45,12 @@ export default function DoneButton({
   text = "Done",
   className,
   style,
+  disabled = false,
 }: DoneButtonProps) {
   return (
     <Styled.OuterDiv className={className} style={style}>
       <Styled.Div>
-        <Styled.Button onClick={onClick} text={text} />
+        <Styled.Button onClick={onClick} text={text} disabled={disabled} />
       </Styled.Div>
     </Styled.OuterDiv>
   );

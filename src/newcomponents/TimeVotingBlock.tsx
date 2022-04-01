@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { EventTime } from "../newtypes/voting";
 import VotingBlock from "./VotingBlock";
@@ -13,25 +13,18 @@ const Styled = {
 };
 
 export type TimeVotingBlockProps = {
-  data: EventTime[];
+  times: EventTime[];
   className?: string;
   style?: React.CSSProperties;
 };
 
-type Time = Omit<EventTime, "bestLocations">;
-
 export default function TimeVotingBlock({
-  data,
+  times,
   style,
   className,
 }: TimeVotingBlockProps) {
-  const times = useMemo<Time[]>(
-    () => data.map(({ bestLocations, ...time }) => time),
-    [data]
-  );
-
   const [votingState, setVotingState] = useState<Record<string, boolean>>({});
-  const makeTimeID = (time: Time): string =>
+  const makeTimeID = (time: EventTime): string =>
     `${time.start.toISOString()}-${time.end.toISOString()}`;
 
   return (

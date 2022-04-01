@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { EventTime, Location } from "../newtypes/voting";
+import { Location } from "../newtypes/voting";
 import VotingBlock from "./VotingBlock";
 import LocationVotingCard from "./LocationVotingCard";
 
@@ -13,28 +13,16 @@ const Styled = {
 };
 
 export type LocationVotingBlockProps = {
-  data: EventTime[];
+  locations: Location[];
   className?: string;
   style?: React.CSSProperties;
 };
 
 export default function LocationVotingBlock({
-  data,
+  locations,
   style,
   className,
 }: LocationVotingBlockProps) {
-  const locations = useMemo<Location[]>(() => {
-    const locations = new Map<string, Location>();
-    for (const eventTime of data) {
-      for (const location of eventTime.bestLocations) {
-        if (!locations.has(location.name)) {
-          locations.set(location.name, location);
-        }
-      }
-    }
-    return Array.from(locations.values());
-  }, [data]);
-
   const [votingState, setVotingState] = useState<Record<string, boolean>>({});
 
   return (

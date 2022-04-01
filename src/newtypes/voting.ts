@@ -2,7 +2,6 @@ export interface EventTime {
   start: Date;
   end: Date;
   available: Person[];
-  bestLocations: Location[];
 }
 
 export interface Person {
