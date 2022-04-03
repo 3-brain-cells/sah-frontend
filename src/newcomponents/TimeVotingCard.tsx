@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { EventTime, Person } from "../newtypes/voting";
+import { EventTime, Person } from "../newtypes/types";
 import Heading from "../components/Heading";
 import BaseText from "../components/BaseText";
 import { FaChevronDown } from "react-icons/fa";
@@ -100,6 +100,7 @@ export type TimeVotingCardProps = {
   time: Omit<EventTime, "bestLocations">;
   selected: boolean;
   onClick: () => void;
+  disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
 };
@@ -108,6 +109,7 @@ export default function TimeVotingCard({
   time,
   selected,
   onClick,
+  disabled = false,
   className,
   style,
 }: TimeVotingCardProps) {
@@ -144,6 +146,7 @@ export default function TimeVotingCard({
       style={style}
       onClick={onClick}
       selected={selected}
+      disabled={disabled}
     >
       <Heading>
         {dateShort} {timeStart} - {timeEnd}

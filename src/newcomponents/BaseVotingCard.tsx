@@ -18,6 +18,11 @@ const Styled = {
     &[data-selected="true"] {
       background-color: ${rgba(lighten(0.2, colors.secondary), 0.2)};
     }
+
+    &[data-disabled="true"] {
+      opacity: 0.5;
+      pointer-events: none;
+    }
   `,
   CardCheckbox: styled.div`
     display: flex;
@@ -42,6 +47,7 @@ export type BaseVotingCardProps = {
   noPadding?: boolean;
   selected: boolean;
   onClick: () => void;
+  disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
 };
@@ -51,6 +57,7 @@ export default function BaseVotingCard({
   noPadding = false,
   selected,
   onClick,
+  disabled = false,
   className,
   style,
 }: BaseVotingCardProps) {
@@ -60,6 +67,7 @@ export default function BaseVotingCard({
       style={style}
       onClick={onClick}
       data-selected={selected.toString()}
+      data-disabled={disabled.toString()}
     >
       <Styled.CardCheckbox>
         <Checkbox selected={selected} style={{ pointerEvents: "none" }} />

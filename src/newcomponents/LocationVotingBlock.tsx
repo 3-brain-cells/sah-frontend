@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-import { Location } from "../newtypes/voting";
+import { Location } from "../newtypes/types";
 import VotingBlock from "./VotingBlock";
 import LocationVotingCard from "./LocationVotingCard";
 
@@ -14,31 +14,39 @@ const Styled = {
 
 export type LocationVotingBlockProps = {
   locations: Location[];
+  selectedLocations: number[];
+  onChangeSelectedLocations: (next: number[]) => void;
+  disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
 };
 
 export default function LocationVotingBlock({
   locations,
+  selectedLocations,
+  onChangeSelectedLocations,
+  disabled = false,
   style,
   className,
 }: LocationVotingBlockProps) {
-  const [votingState, setVotingState] = useState<Record<string, boolean>>({});
-
   return (
     <VotingBlock title="Vote on location" style={style} className={className}>
-      {locations.map((location) => {
+      {locations.map((location, i) => {
         return (
           <Styled.LocationVotingCard
             key={location.name}
             location={location}
-            selected={votingState[location.name] ?? false}
+            selected={selectedLocations.includes(i) ?? false}
             onClick={() => {
-              setVotingState((prev) => ({
-                ...prev,
-                [location.name]: !prev[location.name],
-              }));
+              if (selectedLocations.includes(i)) {
+                onChangeSelectedLocations(
+                  selectedLocations.filter((x) => x !== i)
+                );
+              } else {
+                onChangeSelectedLocations([...selectedLocations, i]);
+              }
             }}
+            disabled={disabled}
           />
         );
       })}

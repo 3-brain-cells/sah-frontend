@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Location } from "../newtypes/voting";
+import { Location } from "../newtypes/types";
 import BaseVotingCard from "./BaseVotingCard";
 import Heading from "../components/Heading";
 import { colors } from "../components/_lib/colors";
@@ -88,6 +88,7 @@ export type LocationVotingCardProps = {
   location: Location;
   selected: boolean;
   onClick: () => void;
+  disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
 };
@@ -96,6 +97,7 @@ export default function LocationVotingCard({
   location,
   selected,
   onClick,
+  disabled = false,
   className,
   style,
 }: LocationVotingCardProps) {
@@ -106,6 +108,7 @@ export default function LocationVotingCard({
       onClick={onClick}
       selected={selected}
       noPadding
+      disabled={disabled}
     >
       <Styled.Layout>
         <Styled.LocationText>

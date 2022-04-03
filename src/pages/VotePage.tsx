@@ -1,11 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DemoOuter from "../newcomponents/DemoOuter";
 import { useParams } from "react-router-dom";
 import DoneButton from "../newcomponents/DoneButton";
 import LocationVotingBlock from "../newcomponents/LocationVotingBlock";
 import TimeVotingBlock from "../newcomponents/TimeVotingBlock";
-import { EventTime } from "../newtypes/voting";
-import { API_ROOT } from "../newtypes/api";
+import {
+  API_ROOT,
+  PopulateEventBody,
+  EventTime,
+  Location,
+} from "../newtypes/types";
 
 export type VotePageProps = {
   className?: string;
@@ -17,8 +21,8 @@ export default function VotePage({ style, className }: VotePageProps) {
   const eventId = params.eventId ?? "";
 
   // Fetch times and locations from the API
-  const [times, setTimes] = React.useState<EventTime[]>([]);
-  const [locations, setLocations] = React.useState<Location[]>([]);
+  const [times, setTimes] = useState<EventTime[]>([]);
+  const [locations, setLocations] = useState<Location[]>([]);
   useEffect(() => {
     async function inner() {
       try {
@@ -37,19 +41,36 @@ export default function VotePage({ style, className }: VotePageProps) {
   }, [eventId]);
 
   // State
-  const [selectedTimes, setSelectedTimes] = React.useState<number[]>([]);
-  const [selectedLocations, setSelectedLocations] = React.useState<string[]>(
-    []
-  );
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [selectedTimes, setSelectedTimes] = useState<number[]>([]);
+  const [selectedLocations, setSelectedLocations] = useState<number[]>([]);
 
-  const canSubmit =
-    !isSubmitting && selectedTimes.length > 0 && selectedLocations.length > 0;
+  const canSubmit = selectedTimes.length > 0 && selectedLocations.length > 0;
+
+  // Handle submitting before closing
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const onSubmit = async () => {
-    setIsSubmitting(true);
-    // TODO implement
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
+    if (canSubmit) {
+      setIsSubmitting(true);
+      try {
+        const body: PopulateEventBody = {
+          location_votes: selectedTimes,
+          time_votes: selectedLocations,
+        };
+
+        // Ignore errors
+        await fetch(`${API_ROOT}/api/v1/events/${eventId}/votes`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+      } catch (ex) {
+        // Ignore errors
+      }
+      setIsSubmitting(false);
+      window.close();
+    }
   };
 
   return (
@@ -58,14 +79,20 @@ export default function VotePage({ style, className }: VotePageProps) {
         times={times}
         style={{ marginBottom: 24 }}
         selectedTimes={selectedTimes}
-        setSelectedTimes={setSelectedTimes}
+        onChangeSelectedTimes={setSelectedTimes}
+        disabled={isSubmitting}
       />
       <LocationVotingBlock
         locations={locations}
         selectedLocations={selectedLocations}
-        setSelectedLocations={setSelectedLocations}
+        onChangeSelectedLocations={setSelectedLocations}
+        disabled={isSubmitting}
       />
-      <DoneButton onClick={onSubmit} text="Submit" disabled={!canSubmit} />
+      <DoneButton
+        onClick={onSubmit}
+        text="Submit"
+        disabled={!canSubmit || isSubmitting}
+      />
     </DemoOuter>
   );
 }

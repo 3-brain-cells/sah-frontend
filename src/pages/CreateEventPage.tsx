@@ -7,7 +7,7 @@ import WithLabel from "../components/WithLabel";
 import DoneButton from "../newcomponents/DoneButton";
 import TextBox from "../components/TextBox";
 import TextArea from "../components/TextArea";
-import { API_ROOT } from "../newtypes/api";
+import { API_ROOT, CreateEventBody, LocationCategory } from "../newtypes/types";
 
 const Styled = {
   Form: styled.div`
@@ -46,7 +46,6 @@ for (let i = 8; i < 24; i++) {
 }
 
 // Create the location category options statically
-type LocationCategory = "General";
 const locationCategoryOptions: { label: string; value: LocationCategory }[] = [
   { label: "General", value: "General" },
 ];
@@ -111,30 +110,48 @@ export default function CreateEventPage({
   // Handle submitting before closing
   const [isSubmitting, setIsSubmitting] = useState(false);
   const onCreate = async () => {
-    if (!canCreate) return;
-    setIsSubmitting(true);
-    try {
-      // Ignore errors
-      await fetch(`${API_ROOT}/api/v1/events/${eventId}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+    if (
+      title.length > 0 &&
+      selectedEarliestDate != null &&
+      selectedLatestDate != null &&
+      selectedStartTime != null &&
+      selectedEndTime != null &&
+      selectedLocationCategory != null
+    ) {
+      setIsSubmitting(true);
+      try {
+        const [startHour, startMinute] = selectedStartTime.value
+          .split(":")
+          .map(Number);
+        const [endHour, endMinute] = selectedEndTime.value
+          .split(":")
+          .map(Number);
+        const body: CreateEventBody = {
           title,
           description,
-          earliest_date: selectedEarliestDate?.value,
-          latest_date: selectedLatestDate?.value,
-          start_time: selectedStartTime?.value,
-          end_time: selectedEndTime?.value,
-          location_category: selectedLocationCategory?.value,
-        }),
-      });
-    } catch (ex) {
-      // Ignore errors
+          earliest_date: selectedEarliestDate.value,
+          latest_date: selectedLatestDate.value,
+          start_time_hour: startHour,
+          start_time_minute: startMinute,
+          end_time_hour: endHour,
+          end_time_minute: endMinute,
+          location_category: selectedLocationCategory.value as LocationCategory,
+        };
+
+        // Ignore errors
+        await fetch(`${API_ROOT}/api/v1/events/${eventId}/`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+      } catch (ex) {
+        // Ignore errors
+      }
+      setIsSubmitting(false);
+      window.close();
     }
-    setIsSubmitting(false);
-    window.close();
   };
 
   // Automatically focus the title textbox upon mounting
@@ -215,7 +232,11 @@ export default function CreateEventPage({
           />
         </WithLabel>
       </Styled.Form>
-      <DoneButton onClick={onCreate} text="Create" disabled={!canCreate} />
+      <DoneButton
+        onClick={onCreate}
+        text="Create"
+        disabled={!canCreate || isSubmitting}
+      />
     </DemoOuter>
   );
 }
