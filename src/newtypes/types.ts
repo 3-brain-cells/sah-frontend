@@ -3,6 +3,7 @@ export const API_ROOT = "http://localhost:5000";
 export type LocationCategory = "General";
 
 export interface CreateEventBody {
+  user_id: string;
   title: string;
   description: string;
   earliest_date: string; // ISO 8601 date
@@ -15,6 +16,7 @@ export interface CreateEventBody {
 }
 
 export interface PopulateEventBody {
+  user_id: string;
   location_votes: number[];
   time_votes: number[];
 }

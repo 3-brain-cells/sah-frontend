@@ -8,6 +8,7 @@ import DoneButton from "../newcomponents/DoneButton";
 import TextBox from "../components/TextBox";
 import TextArea from "../components/TextArea";
 import { API_ROOT, CreateEventBody, LocationCategory } from "../newtypes/types";
+import { getUserID, redirectToLogin } from "../oauth";
 
 const Styled = {
   Form: styled.div`
@@ -56,6 +57,14 @@ export default function CreateEventPage({
 }: CreateEventPageProps) {
   const params = useParams();
   const eventId = params.eventId ?? "";
+
+  const userID = getUserID();
+  useEffect(() => {
+    if (userID === null) {
+      // Redirect to the oauth flow
+      redirectToLogin({ src: "new", event_id: eventId });
+    }
+  });
 
   // Create the date options based on the current date
   const dateOptions = useMemo(() => {
@@ -127,6 +136,7 @@ export default function CreateEventPage({
           .split(":")
           .map(Number);
         const body: CreateEventBody = {
+          user_id: userID ?? "",
           title,
           description,
           earliest_date: selectedEarliestDate.value,

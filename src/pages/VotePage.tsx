@@ -10,6 +10,7 @@ import {
   EventTime,
   Location,
 } from "../newtypes/types";
+import { getUserID, redirectToLogin } from "../oauth";
 
 export type VotePageProps = {
   className?: string;
@@ -19,6 +20,14 @@ export type VotePageProps = {
 export default function VotePage({ style, className }: VotePageProps) {
   const params = useParams();
   const eventId = params.eventId ?? "";
+
+  const userID = getUserID();
+  useEffect(() => {
+    if (userID === null) {
+      // Redirect to the oauth flow
+      redirectToLogin({ src: "vote", event_id: eventId });
+    }
+  }, [userID]);
 
   // Fetch times and locations from the API
   const [times, setTimes] = useState<EventTime[]>([]);
@@ -53,6 +62,7 @@ export default function VotePage({ style, className }: VotePageProps) {
       setIsSubmitting(true);
       try {
         const body: PopulateEventBody = {
+          user_id: userID ?? "",
           location_votes: selectedTimes,
           time_votes: selectedLocations,
         };
