@@ -59,12 +59,13 @@ export default function CreateEventPage({
   const eventId = params.eventId ?? "";
 
   const userID = getUserID();
+  console.log(`CreateEventPage(): userID='${userID}' eventId='${eventId}'`);
   useEffect(() => {
     if (userID === null) {
       // Redirect to the oauth flow
       redirectToLogin({ src: "new", event_id: eventId });
     }
-  });
+  }, [userID]);
 
   // Create the date options based on the current date
   const dateOptions = useMemo(() => {
