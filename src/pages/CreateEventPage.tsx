@@ -65,7 +65,7 @@ export default function CreateEventPage({
       // Redirect to the oauth flow
       redirectToLogin({ src: "new", event_id: eventId });
     }
-  }, [userID]);
+  }, [eventId, userID]);
 
   // Create the date options based on the current date
   const dateOptions = useMemo(() => {

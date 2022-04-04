@@ -27,7 +27,7 @@ export default function VotePage({ style, className }: VotePageProps) {
       // Redirect to the oauth flow
       redirectToLogin({ src: "vote", event_id: eventId });
     }
-  }, [userID]);
+  }, [eventId, userID]);
 
   // Fetch times and locations from the API
   const [times, setTimes] = useState<EventTime[]>([]);
