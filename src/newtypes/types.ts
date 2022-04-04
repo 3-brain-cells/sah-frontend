@@ -15,6 +15,15 @@ export interface CreateEventBody {
   location_category: LocationCategory;
 }
 
+export interface GetVoteOptionsBody {
+  times: {
+    start: string;
+    end: string;
+    available: Person[];
+  }[];
+  locations: Location[];
+}
+
 export interface PopulateEventBody {
   user_id: string;
   location_votes: number[];

@@ -9,6 +9,7 @@ import {
   PopulateEventBody,
   EventTime,
   Location,
+  GetVoteOptionsBody,
 } from "../newtypes/types";
 import { getUserID, redirectToLogin } from "../oauth";
 
@@ -39,8 +40,16 @@ export default function VotePage({ style, className }: VotePageProps) {
           `${API_ROOT}/api/v1/events/${eventId}/vote_options`,
           { method: "GET" }
         );
-        const { times, locations } = await response.json();
-        setTimes(times);
+        const { times, locations } =
+          (await response.json()) as GetVoteOptionsBody;
+        // Convert the time strings in times to Date objects
+        setTimes(
+          times.map(({ start, end, ...rest }) => ({
+            start: new Date(start),
+            end: new Date(end),
+            ...rest,
+          }))
+        );
         setLocations(locations);
       } catch (e) {
         // Do nothing
