@@ -139,7 +139,7 @@ export default function CreateEventPage({
         };
 
         // Ignore errors
-        await fetch(`${API_ROOT}/api/v1/events/${eventId}/`, {
+        await fetch(`${API_ROOT}/api/v1/events/${eventId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
