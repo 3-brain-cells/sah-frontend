@@ -49,3 +49,12 @@ export interface Location {
   previewImageUrl: string;
   address: string;
 }
+
+export interface GetAvailabilityInfoResponseBody {
+  earliest_date: string; // ISO 8601 date
+  latest_date: string; // ISO 8601 date
+  start_time_hour: number;
+  start_time_minute: number;
+  end_time_hour: number;
+  end_time_minute: number;
+}
