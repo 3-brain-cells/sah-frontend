@@ -1,7 +1,5 @@
 export const API_ROOT = "http://localhost:5000";
 
-export type LocationCategory = "General";
-
 export interface CreateEventBody {
   user_id: string;
   title: string;
@@ -12,7 +10,6 @@ export interface CreateEventBody {
   start_time_minute: number;
   end_time_hour: number;
   end_time_minute: number;
-  location_category: LocationCategory;
 }
 
 export interface GetVoteOptionsBody {

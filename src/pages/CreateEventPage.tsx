@@ -7,7 +7,7 @@ import WithLabel from "../components/WithLabel";
 import DoneButton from "../newcomponents/DoneButton";
 import TextBox from "../components/TextBox";
 import TextArea from "../components/TextArea";
-import { API_ROOT, CreateEventBody, LocationCategory } from "../newtypes/types";
+import { API_ROOT, CreateEventBody } from "../newtypes/types";
 import { getUserID, redirectToLogin } from "../oauth";
 
 const Styled = {
@@ -100,10 +100,6 @@ export default function CreateEventPage({
     label: string;
     value: string;
   } | null>(null);
-  const [selectedLocationCategory, setLocationCategory] = useState<{
-    label: string;
-    value: string;
-  } | null>(null);
 
   // Store a ref of the title textbox
   const titleTextbox = useRef<HTMLInputElement | null>(null);
@@ -113,8 +109,7 @@ export default function CreateEventPage({
     selectedEarliestDate != null &&
     selectedLatestDate != null &&
     selectedStartTime != null &&
-    selectedEndTime != null &&
-    selectedLocationCategory != null;
+    selectedEndTime != null;
 
   // Handle submitting before closing
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -124,8 +119,7 @@ export default function CreateEventPage({
       selectedEarliestDate != null &&
       selectedLatestDate != null &&
       selectedStartTime != null &&
-      selectedEndTime != null &&
-      selectedLocationCategory != null
+      selectedEndTime != null
     ) {
       setIsSubmitting(true);
       try {
@@ -145,7 +139,6 @@ export default function CreateEventPage({
           start_time_minute: startMinute,
           end_time_hour: endHour,
           end_time_minute: endMinute,
-          location_category: selectedLocationCategory.value as LocationCategory,
         };
 
         // Ignore errors
@@ -232,14 +225,6 @@ export default function CreateEventPage({
               disabled={isSubmitting}
             />
           </Styled.SplitRow>
-        </WithLabel>
-        <WithLabel label="Location category" style={{ flexBasis: 1 }}>
-          <SingleSelect
-            options={locationCategoryOptions}
-            onSelect={setLocationCategory}
-            selectedOption={selectedLocationCategory}
-            disabled={isSubmitting}
-          />
         </WithLabel>
       </Styled.Form>
       <DoneButton
