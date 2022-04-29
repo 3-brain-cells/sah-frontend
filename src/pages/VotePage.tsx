@@ -56,7 +56,7 @@ export default function VotePage({ style, className }: VotePageProps) {
       }
     }
     inner();
-  }, [eventId]);
+  }, [eventId, userID]);
 
   // State
   const [selectedTimes, setSelectedTimes] = useState<number[]>([]);
