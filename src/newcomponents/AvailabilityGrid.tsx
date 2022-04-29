@@ -79,7 +79,7 @@ export default function AvailabilityGrid({
   // Determine the number of days between the earliest and latest dates
   const numDays =
     (latestDate.getTime() - earliestDate.getTime()) / (1000 * 60 * 60 * 24);
-  const numDaysInt = Math.floor(numDays);
+  const numDaysInt = Math.floor(numDays) + 1;
 
   // Determine the number of hours between the start and end times
   const numHours =
