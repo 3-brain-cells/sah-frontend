@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import DemoOuter from "../newcomponents/DemoOuter";
+import PageOuter from "../newcomponents/PageOuter";
 import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
 import { SingleSelect, SelectItem } from "../components/Select";
@@ -172,7 +172,7 @@ export default function CreateEventPage({
   }, []);
 
   return (
-    <DemoOuter className={className} style={style}>
+    <PageOuter className={className} style={style}>
       <Styled.Form>
         <WithLabel label="Title" style={{ flexBasis: 1 }}>
           <TextBox
@@ -248,6 +248,6 @@ export default function CreateEventPage({
         text="Create"
         disabled={!canCreate || isSubmitting}
       />
-    </DemoOuter>
+    </PageOuter>
   );
 }

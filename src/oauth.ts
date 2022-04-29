@@ -3,7 +3,6 @@ import { API_ROOT } from "./newtypes/types";
 export function getUserID(): string | null {
   // Check for the user ID in the local storage
   const userIDFromStorage = localStorage.getItem("user_id");
-  console.log(`getUserID(): userIDFromStorage='${userIDFromStorage}'`);
   if (userIDFromStorage) {
     return userIDFromStorage;
   }
@@ -16,13 +15,11 @@ export function redirectToLogin(args: Record<string, string>) {
     .map((key) => `${key}=${args[key]}`)
     .join("&");
   const full_url = `${API_ROOT}/login?${query}`;
-  console.log(`redirectToLogin(): full_url='${full_url}'`);
   window.location.href = full_url;
 }
 
 function onLoadCheck() {
   const userID = getUserIDFromQuery();
-  console.log(`onLoadCheck(): userID='${userID}'`);
   if (userID !== null) {
     localStorage.setItem("user_id", userID);
   }

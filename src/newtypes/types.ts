@@ -50,11 +50,28 @@ export interface Location {
   address: string;
 }
 
-export interface GetAvailabilityInfoResponseBody {
+export interface GetAvailabilityResponseBody {
   earliest_date: string; // ISO 8601 date
   latest_date: string; // ISO 8601 date
   start_time_hour: number;
   start_time_minute: number;
   end_time_hour: number;
   end_time_minute: number;
+  days: DayAvailability[] | null;
+}
+
+export interface DayAvailability {
+  date: string;
+  available_blocks: AvailabilityBlock[];
+}
+
+export interface AvailabilityBlock {
+  start_hour: number;
+  start_minute: number;
+  end_hour: number;
+  end_minute: number;
+}
+
+export interface PutAvailabilityRequestBody {
+  days: DayAvailability[];
 }

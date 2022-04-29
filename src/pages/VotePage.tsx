@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DemoOuter from "../newcomponents/DemoOuter";
+import PageOuter from "../newcomponents/PageOuter";
 import { useParams } from "react-router-dom";
 import DoneButton from "../newcomponents/DoneButton";
 import LocationVotingBlock from "../newcomponents/LocationVotingBlock";
@@ -93,7 +93,7 @@ export default function VotePage({ style, className }: VotePageProps) {
   };
 
   return (
-    <DemoOuter className={className} style={style}>
+    <PageOuter className={className} style={style}>
       <TimeVotingBlock
         times={times}
         style={{ marginBottom: 24 }}
@@ -112,6 +112,6 @@ export default function VotePage({ style, className }: VotePageProps) {
         text="Submit"
         disabled={!canSubmit || isSubmitting}
       />
-    </DemoOuter>
+    </PageOuter>
   );
 }

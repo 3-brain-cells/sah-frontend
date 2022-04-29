@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { colors } from "../components/_lib/colors";
 
 const Styled = {
-  DemoOuter: styled.div`
+  PageOuter: styled.div`
     background-color: ${colors.background20};
     padding: 16px 16px;
     height: 100vh;
@@ -19,20 +19,20 @@ const Styled = {
   `,
 };
 
-export type DemoOuterProps = {
+export type PageOuterProps = {
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
 };
 
-export default function DemoOuter({
+export default function PageOuter({
   children,
   style,
   className,
-}: DemoOuterProps) {
+}: PageOuterProps) {
   return (
-    <Styled.DemoOuter className={className} style={style}>
+    <Styled.PageOuter className={className} style={style}>
       <Styled.Inner>{children}</Styled.Inner>
-    </Styled.DemoOuter>
+    </Styled.PageOuter>
   );
 }
