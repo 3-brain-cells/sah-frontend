@@ -21,6 +21,10 @@ export type TimeVotingBlockProps = {
   style?: React.CSSProperties;
 };
 
+function fixDate(date: Date): Date {
+  return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+}
+
 export default function TimeVotingBlock({
   times,
   selectedTimes,
@@ -30,7 +34,7 @@ export default function TimeVotingBlock({
   className,
 }: TimeVotingBlockProps) {
   const makeTimeID = (time: EventTime): string =>
-    `${time.start.toISOString()}-${time.end.toISOString()}`;
+    `${fixDate(time.start).toISOString()}-${fixDate(time.end).toISOString()}`;
 
   return (
     <VotingBlock title="Vote on event time" style={style} className={className}>
