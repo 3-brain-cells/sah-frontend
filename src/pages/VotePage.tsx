@@ -37,7 +37,7 @@ export default function VotePage({ style, className }: VotePageProps) {
     async function inner() {
       try {
         const response = await fetch(
-          `${API_ROOT}/api/v1/events/${eventId}/vote_options`,
+          `${API_ROOT}/api/v1/events/${eventId}/vote_options?user_id=${userID}`,
           { method: "GET" }
         );
         const { times, locations } =
