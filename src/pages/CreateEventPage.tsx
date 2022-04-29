@@ -67,7 +67,7 @@ export default function CreateEventPage({
     const options = [];
     for (let i = 0; i < 7; i++) {
       const newDate = new Date(date);
-      newDate.setDate(date.getDate() + i);
+      newDate.setDate(date.getDate() + i + 1);
       options.push({
         label: newDate.toLocaleDateString(),
         value: newDate.toISOString(),

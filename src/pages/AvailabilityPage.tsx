@@ -95,7 +95,7 @@ export default function AvailabilityPage({
         longitude: geolocationPosition.coords.longitude,
       });
     });
-  });
+  }, []);
 
   const canSubmit =
     info !== null &&
@@ -129,7 +129,7 @@ export default function AvailabilityPage({
         // Ignore errors
       }
       setIsSubmitting(false);
-      window.close();
+      // window.close();
     }
   };
 
