@@ -65,7 +65,7 @@ export default function AvailabilityPage({
       if (userID !== null) {
         try {
           const response = await fetch(
-            `${API_ROOT}/api/v1/events/${eventId}/availability/${userID}}`,
+            `${API_ROOT}/api/v1/events/${eventId}/availability/${userID}`,
             { method: "GET" }
           );
           const { days: newDays, ...newInfo } =
@@ -129,7 +129,7 @@ export default function AvailabilityPage({
         // Ignore errors
       }
       setIsSubmitting(false);
-      // window.close();
+      window.close();
     }
   };
 
