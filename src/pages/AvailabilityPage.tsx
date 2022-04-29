@@ -116,7 +116,7 @@ export default function AvailabilityPage({
 
         // Ignore errors
         await fetch(
-          `${API_ROOT}/api/v1/events/${eventId}/availability/${userID}}`,
+          `${API_ROOT}/api/v1/events/${eventId}/availability/${userID}`,
           {
             method: "PUT",
             headers: {
