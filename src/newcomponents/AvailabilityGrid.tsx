@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from "react";
 import styled from "@emotion/styled";
-import { DayAvailability } from "../newtypes/types";
+import { AvailabilityBlock, DayAvailability } from "../newtypes/types";
 
 const Styled = {
   AvailabilityGrid: styled.div`
@@ -48,6 +48,11 @@ type DragState =
       filling: boolean;
     };
 
+function fixDate(dateString: string): Date {
+  const rawDate = new Date(dateString);
+  return new Date(rawDate.getTime() + rawDate.getTimezoneOffset() * 60000);
+}
+
 function getDateIndex({
   earliestDate,
   dateString,
@@ -55,7 +60,7 @@ function getDateIndex({
   earliestDate: Date;
   dateString: string;
 }): number {
-  const dateIndexRaw = new Date(dateString).getTime() - earliestDate.getTime();
+  const dateIndexRaw = fixDate(dateString).getTime() - earliestDate.getTime();
   return Math.floor(dateIndexRaw / (1000 * 60 * 60 * 24));
 }
 
@@ -173,6 +178,7 @@ export default function AvailabilityGrid({
         if (dayMap === undefined) {
           return dayState;
         }
+        stateMap.delete(dateIndex);
 
         // Update the blocks in this date
         let newAvailableBlocks = [...dayState.available_blocks];
@@ -209,6 +215,53 @@ export default function AvailabilityGrid({
           available_blocks: newAvailableBlocks,
         };
       });
+
+      // Process any remaining day state changes
+      if (stateMap.size > 0) {
+        stateMap.forEach((dayMap, day) => {
+          // These should all be fill operations
+          const adjustedDate = new Date(
+            earliestDate.getTime() + day * (1000 * 60 * 60 * 24)
+          );
+          // Convert adjustedDate to UTC
+          const utcDate = new Date(
+            Date.UTC(
+              adjustedDate.getFullYear(),
+              adjustedDate.getMonth(),
+              adjustedDate.getDate(),
+              0,
+              0,
+              0,
+              0
+            )
+          );
+          const newAvailableBlocks: AvailabilityBlock[] = [];
+          dayMap.forEach((value, block) => {
+            let blockStartHour = startTimeHour + Math.floor(block / 2);
+            let blockStartMinute = startTimeMinute + (block % 2) * 30;
+            if (blockStartMinute === 60) {
+              blockStartHour += 1;
+              blockStartMinute = 0;
+            }
+
+            const newBlock = {
+              start_hour: blockStartHour,
+              start_minute: blockStartMinute,
+              end_hour: blockStartHour,
+              end_minute: blockStartMinute + 30,
+            };
+            if (newBlock.end_minute === 60) {
+              newBlock.end_hour += 1;
+              newBlock.end_minute = 0;
+            }
+            newAvailableBlocks.push(newBlock);
+          });
+          newState.push({
+            date: utcDate.toISOString(),
+            available_blocks: newAvailableBlocks,
+          });
+        });
+      }
       onChange(newState);
     }
   }

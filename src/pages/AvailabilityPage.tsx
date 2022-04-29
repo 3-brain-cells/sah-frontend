@@ -35,6 +35,11 @@ export type AvailabilityPageProps = {
 
 type AvailabilityInfo = Omit<GetAvailabilityResponseBody, "days">;
 
+function fixDate(dateString: string): Date {
+  const rawDate = new Date(dateString);
+  return new Date(rawDate.getTime() + rawDate.getTimezoneOffset() * 60000);
+}
+
 export default function AvailabilityPage({
   style,
   className,
@@ -138,8 +143,8 @@ export default function AvailabilityPage({
           <AvailabilityGrid
             state={days}
             onChange={setDays}
-            earliestDate={new Date(info.earliest_date)}
-            latestDate={new Date(info.latest_date)}
+            earliestDate={fixDate(info.earliest_date)}
+            latestDate={fixDate(info.latest_date)}
             startTimeHour={info.start_time_hour}
             startTimeMinute={info.start_time_minute}
             endTimeHour={info.end_time_hour}
