@@ -112,7 +112,14 @@ export default function AvailabilityGrid({
     }
 
     return gridState;
-  }, [numDaysInt, numBlocks, state]);
+  }, [
+    numDaysInt,
+    numBlocks,
+    state,
+    earliestDate,
+    startTimeHour,
+    startTimeMinute,
+  ]);
 
   const dragState = useRef<DragState>({ dragging: false });
 
