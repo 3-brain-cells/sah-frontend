@@ -128,7 +128,8 @@ export default function LocationVotingCard({
               </Styled.StarRatingText>
             </Styled.StarRating>
             <Styled.Distance>
-              <strong>{location.distanceFromCurrentUser}</strong> mi away
+              <strong>{location.distanceFromCurrentUser.toFixed(2)}</strong> mi
+              away
             </Styled.Distance>
           </Styled.InfoRow>
           <Styled.Address>{location.address}</Styled.Address>
