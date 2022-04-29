@@ -18,6 +18,11 @@ export type VotePageProps = {
   style?: React.CSSProperties;
 };
 
+function fixDate(dateString: string): Date {
+  const rawDate = new Date(dateString);
+  return new Date(rawDate.getTime() + rawDate.getTimezoneOffset() * 60000);
+}
+
 export default function VotePage({ style, className }: VotePageProps) {
   const params = useParams();
   const eventId = params.eventId ?? "";
@@ -45,8 +50,8 @@ export default function VotePage({ style, className }: VotePageProps) {
         // Convert the time strings in times to Date objects
         setTimes(
           times.map(({ start, end, ...rest }) => ({
-            start: new Date(start),
-            end: new Date(end),
+            start: fixDate(start),
+            end: fixDate(end),
             ...rest,
           }))
         );
