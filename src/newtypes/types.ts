@@ -74,4 +74,8 @@ export interface AvailabilityBlock {
 
 export interface PutAvailabilityRequestBody {
   days: DayAvailability[];
+  location: {
+    latitude: number;
+    longitude: number;
+  };
 }

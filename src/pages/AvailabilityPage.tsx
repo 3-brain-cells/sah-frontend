@@ -77,9 +77,25 @@ export default function AvailabilityPage({
     inner();
   }, [eventId, userID]);
 
+  // Once the user ID is available,
+  // fetch the user's location
+  const [location, setLocation] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((geolocationPosition) => {
+      setLocation({
+        latitude: geolocationPosition.coords.latitude,
+        longitude: geolocationPosition.coords.longitude,
+      });
+    });
+  });
+
   const canSubmit =
     info !== null &&
     days.length > 0 &&
+    location !== null &&
     days.every((day) => day.available_blocks.length > 0);
 
   // Handle submitting before closing
@@ -90,6 +106,7 @@ export default function AvailabilityPage({
       try {
         const body: PutAvailabilityRequestBody = {
           days: days ?? [],
+          location: location ?? { latitude: 0, longitude: 0 },
         };
 
         // Ignore errors
