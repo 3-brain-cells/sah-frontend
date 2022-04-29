@@ -190,7 +190,6 @@ export default function AvailabilityGrid({
             }
             newAvailableBlocks.push(newBlock);
           } else {
-            console.log({ blockStartHour, blockStartMinute });
             newAvailableBlocks = newAvailableBlocks.filter(
               (block) =>
                 block.start_hour !== blockStartHour ||
@@ -204,7 +203,6 @@ export default function AvailabilityGrid({
         };
       });
       onChange(newState);
-      console.log(JSON.stringify(newState));
     }
   }
 
@@ -319,55 +317,6 @@ export default function AvailabilityGrid({
                     data-block={block}
                     data-day={day}
                     data-selected={gridState[day][block] ? true : undefined}
-                    onMouseEnter={(e) => {
-                      console.log(
-                        `mouse enter (${dragState.current.dragging})`
-                      );
-                      if (!dragState.current.dragging) {
-                        return;
-                      }
-                      const { filling } = dragState.current;
-                      if (gridState[day][block] !== filling) {
-                        // Update the state
-                        const newState = state.map((dayState) => {
-                          if (
-                            new Date(dayState.date).getTime() ===
-                            earliestDate.getTime() + day * 1000 * 60 * 60 * 24
-                          ) {
-                            let newAvailableBlocks;
-                            if (filling) {
-                              const newBlock = {
-                                start_hour: blockStartHour,
-                                start_minute: blockStartMinute,
-                                end_hour: blockStartHour,
-                                end_minute: blockStartMinute + 30,
-                              };
-                              if (newBlock.end_minute === 60) {
-                                newBlock.end_hour += 1;
-                                newBlock.end_minute = 0;
-                              }
-                              newAvailableBlocks = [
-                                ...dayState.available_blocks,
-                                newBlock,
-                              ];
-                            } else {
-                              newAvailableBlocks =
-                                dayState.available_blocks.filter(
-                                  (block) =>
-                                    block.start_hour !== blockStartHour ||
-                                    block.start_minute !== blockStartMinute
-                                );
-                            }
-                            return {
-                              ...dayState,
-                              available_blocks: newAvailableBlocks,
-                            };
-                          } else {
-                            return dayState;
-                          }
-                        });
-                      }
-                    }}
                   ></Styled.HighlightCell>
                 ))}
               </tr>

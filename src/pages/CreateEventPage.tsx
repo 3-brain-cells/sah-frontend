@@ -59,7 +59,6 @@ export default function CreateEventPage({
   const eventId = params.eventId ?? "";
 
   const userID = getUserID();
-  console.log(`CreateEventPage(): userID='${userID}' eventId='${eventId}'`);
   useEffect(() => {
     if (userID === null) {
       // Redirect to the oauth flow
