@@ -46,11 +46,6 @@ for (let i = 8; i < 24; i++) {
   addTime(i, 30);
 }
 
-// Create the location category options statically
-const locationCategoryOptions: { label: string; value: LocationCategory }[] = [
-  { label: "General", value: "General" },
-];
-
 export default function CreateEventPage({
   style,
   className,
