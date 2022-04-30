@@ -1,5 +1,4 @@
-export const API_ROOT = "http://147.182.242.150:5000";
-// 147.182.242.150
+export const API_ROOT = "https://kairosaio.com";
 
 export interface CreateEventBody {
   user_id: string;
