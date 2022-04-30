@@ -93,7 +93,7 @@ export default function VotePage({ style, className }: VotePageProps) {
         // Ignore errors
       }
       setIsSubmitting(false);
-      window.close();
+      // window.close();
     }
   };
 

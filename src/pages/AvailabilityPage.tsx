@@ -129,7 +129,7 @@ export default function AvailabilityPage({
         // Ignore errors
       }
       setIsSubmitting(false);
-      window.close();
+      // window.close();
     }
   };
 
