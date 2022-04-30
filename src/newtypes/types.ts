@@ -16,7 +16,7 @@ export interface GetVoteOptionsBody {
   times: {
     start: string;
     end: string;
-    available: User[];
+    users: User[];
   }[];
   locations: Location[];
 }
