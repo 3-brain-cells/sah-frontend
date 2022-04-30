@@ -1,4 +1,5 @@
-export const API_ROOT = "http://147.182.242.150:5000";
+export const API_ROOT = "http://localhost:5000";
+// 147.182.242.150
 
 export interface CreateEventBody {
   user_id: string;
