@@ -16,7 +16,7 @@ export interface GetVoteOptionsBody {
   times: {
     start: string;
     end: string;
-    available: Person[];
+    available: User[];
   }[];
   locations: Location[];
 }
@@ -30,12 +30,13 @@ export interface PopulateEventBody {
 export interface EventTime {
   start: Date;
   end: Date;
-  available: Person[];
+  users: User[];
 }
 
-export interface Person {
-  profileColor: string;
+export interface User {
+  color: string;
   name: string;
+  id: string;
 }
 
 export interface Location {

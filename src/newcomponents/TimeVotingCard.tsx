@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { EventTime, Person } from "../newtypes/types";
+import { EventTime, User } from "../newtypes/types";
 import Heading from "../components/Heading";
 import BaseText from "../components/BaseText";
 import { FaChevronDown } from "react-icons/fa";
@@ -136,9 +136,9 @@ export default function TimeVotingCard({
   // either '1 person is available'
   // or '2 people are available'
   const availabilityText =
-    time.available.length === 1
-      ? `${time.available.length} person is available`
-      : `${time.available.length} people are available`;
+    time.users.length === 1
+      ? `${time.users.length} person is available`
+      : `${time.users.length} people are available`;
 
   return (
     <BaseVotingCard
@@ -152,7 +152,7 @@ export default function TimeVotingCard({
         {dateShort} {timeStart} - {timeEnd}
       </Heading>
       <Styled.AvailabilityText>{availabilityText}</Styled.AvailabilityText>
-      <AvailabilityDropdown people={time.available} />
+      <AvailabilityDropdown people={time.users} />
     </BaseVotingCard>
   );
 }
@@ -162,7 +162,7 @@ export default function TimeVotingCard({
 // ? ==============
 
 type AvailabilityDropdownProps = {
-  people: Person[];
+  people: User[];
   className?: string;
   style?: React.CSSProperties;
 };
@@ -185,7 +185,7 @@ function AvailabilityDropdown({
     peopleHeader.push(
       <Styled.Profile
         key={person.name}
-        style={{ backgroundColor: person.profileColor }}
+        style={{ backgroundColor: person.color }}
       />
     );
   });
@@ -219,9 +219,7 @@ function AvailabilityDropdown({
         <Styled.AvailabilityList>
           {people.map((person) => (
             <Styled.Person key={person.name}>
-              <Styled.PersonIcon
-                style={{ backgroundColor: person.profileColor }}
-              />
+              <Styled.PersonIcon style={{ backgroundColor: person.color }} />
               <Styled.PersonName>{person.name}</Styled.PersonName>
             </Styled.Person>
           ))}
