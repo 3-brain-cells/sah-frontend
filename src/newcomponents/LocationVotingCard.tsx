@@ -46,23 +46,6 @@ const Styled = {
     font-size: 0.9rem;
     color: ${colors["foreground-light"]};
   `,
-  YelpLink: styled.a`
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    line-height: 22px;
-    color: ${colors["secondary+10"]};
-    opacity: 0.8;
-    text-decoration: none;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-      opacity: 1;
-    }
-
-    margin-right: 16px;
-  `,
   StarRating: styled.div`
     display: flex;
     flex-direction: row;
@@ -114,13 +97,6 @@ export default function LocationVotingCard({
         <Styled.LocationText>
           <Styled.Heading>{location.name}</Styled.Heading>
           <Styled.InfoRow>
-            <Styled.YelpLink
-              href={location.yelpUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Yelp
-            </Styled.YelpLink>
             <Styled.StarRating>
               <Styled.StarRatingIcon />
               <Styled.StarRatingText>

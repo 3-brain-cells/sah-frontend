@@ -41,7 +41,6 @@ export interface User {
 
 export interface Location {
   name: string;
-  yelpUrl: string;
   stars: number;
   distanceFromCurrentUser: number;
   previewImageUrl: string;
