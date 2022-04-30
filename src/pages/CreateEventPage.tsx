@@ -148,7 +148,7 @@ export default function CreateEventPage({
         // Ignore errors
       }
       setIsSubmitting(false);
-      // window.close();
+      window.close();
     }
   };
 
