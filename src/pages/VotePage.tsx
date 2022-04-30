@@ -77,8 +77,8 @@ export default function VotePage({ style, className }: VotePageProps) {
       try {
         const body: PopulateEventBody = {
           user_id: userID ?? "",
-          location_votes: selectedTimes,
-          time_votes: selectedLocations,
+          location_votes: selectedLocations,
+          time_votes: selectedTimes,
         };
 
         // Ignore errors
